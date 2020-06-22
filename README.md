@@ -79,9 +79,9 @@ h1 {
 
 ### Dynamic content
 
-Javascript(JS) is programming language, that allow us to change the html page once loaded. With JS we can interact with the user; create, edit or delete the content of our page and communicate with servers.
+Javascript(JS) is a programming language, that allow us to change the html page once loaded. With JS we can interact with the user; create, edit or delete the content of our page and communicate with servers.
 
-So imagine we want something that change over time or over which user is using it, like displaying the current date. We can do it with Javascript
+So imagine we want something that change over time or with user inputs, like displaying the current date. We can do it with Javascript :
 
 ```html
 <p id="date"></p>
@@ -492,7 +492,8 @@ var app = new Vue({
 
 </details>
 
-With this code, when you click a course, this course is displayed behind, well that's not the description, let's tweak our function a bit :
+What does this code ? When you click a course, The course name is displayed behind the list.
+Well we want the description, not the name ! Let's tweak our function a bit :
 
 
 ```html
