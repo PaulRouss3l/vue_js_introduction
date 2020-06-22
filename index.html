@@ -9,27 +9,65 @@
     <body>
       <div class="container" id="app">
         <h1>{{ title }}</h1>
-        <ul class="list-group">
-          <li v-for="course in courses" class="list-group-item">
-            {{ course }}
-          </li>
-        </ul>
+        <course-displayer v-for="subject in subjects" v-bind:title='subject.subject' v-bind:courses='subject.courses'></course-displayer>
       </div>
+
       <script>
+        let template = `<div>
+                        <h2>{{ title }}</h2>
+                        <ul class="list-group">
+                          <li v-for="course in courses" class="list-group-item" :id="course.title" v-on:click="displayDescription">
+                            {{ course.title }}
+                          </li>
+                        </ul>
+                        <div id="description" class="card card-body mt-3">{{ description }}</div>
+                      </div>`;
+        Vue.component('course-displayer', {
+          data: function () {
+            return {
+              'description': ''
+            }
+          },
+          props: ['title', 'courses'],
+          template: template,
+          methods: {
+            displayDescription: function (event) {
+              clicked_course = this.courses.find(course => course.title == event.target.id);
+              this.description = clicked_course.title + ': ' + clicked_course.description;
+            }
+          }
+        });
+
         var app = new Vue({
           el: '#app',
           data: {
-            title: 'Hello Vue !',
-            courses: [
-              "Math",
-              "English",
-              "French",
-              "History",
-              "Programming",
-              "Science",
-            ]
+            title: 'McSchool University inc',
+            subjects: [
+              { subject: 'Math', courses: [
+                { title: 'Math101', description: 'Basic Algebra' },
+                { title: 'Math102', description: 'Complex Algebra' },
+                { title: 'Math103', description: 'Very Difficult Algebra' },
+              ]},
+              { subject: 'English', courses: [
+                { title: 'English101', description: 'The lyrics of a pop song' },
+                { title: 'English102', description: 'The etymology behind pokemons' },
+                { title: 'English103', description: 'Why is there 3 "Bilbo the hobbit" films although there\'s only one book?' },
+              ]},
+              { subject: 'French', courses: [
+                { title: 'French101', description: 'French slang' },
+                { title: 'French102', description: 'How to ask for food in a bakery' },
+                { title: 'French103', description: 'Mais ou est donc passé Ornicar ?' },
+              ]},
+            ],
+          },
+          methods: {
+            displayDescription: function (event) {
+              clicked_course = this.courses.find(course => course.title == event.target.id);
+              this.description = clicked_course.description;
+            }
           }
-        })
+        });
+
       </script>
     </body>
   </html>
